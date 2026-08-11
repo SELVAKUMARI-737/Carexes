@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package patient;
+
+service PatientService {
+    rpc CreatePatient(CreatePatientRequest) returns (PatientResponse);
+    rpc GetAllPatients(Empty) returns (PatientListResponse);
+    rpc UploadReport(UploadReportRequest) returns (UploadReportResponse);
+}
+
+// ----------------------------
+// Common Messages
+// ----------------------------
+
+message Empty {}
+
+// ----------------------------
+// Create Patient
+// ----------------------------
+
+message CreatePatientRequest {
+    string name = 1;
+    int32 age = 2;
+    string gender = 3;
+    string email = 4;
+    string phone = 5;
+    string bloodGroup = 6;
+    string emergencyContact = 7;
+}
+
+message PatientResponse {
+    string message = 1;
+}
+
+// ----------------------------
+// Patient Model
+// ----------------------------
+
+message Patient {
+    string id = 1;
+    string name = 2;
+    int32 age = 3;
+    string gender = 4;
+    string email = 5;
+    string phone = 6;
+    string bloodGroup = 7;
+    string emergencyContact = 8;
+    repeated string reports = 9;
+}
+
+message PatientListResponse {
+    repeated Patient patients = 1;
+}
+
+// ----------------------------
+// Upload Report
+// ----------------------------
+
+message UploadReportRequest {
+    string patientId = 1;
+    string fileName = 2;
+    string mimeType = 3;
+    bytes file = 4;
+}
+
+message UploadReportResponse {
+    string message = 1;
+    string fileName = 2;
+}
