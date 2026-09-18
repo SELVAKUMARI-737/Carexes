@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: api-gateway
+  namespace: carexes
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - carexes-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: api-gateway
+            port:
+              number: 3000
