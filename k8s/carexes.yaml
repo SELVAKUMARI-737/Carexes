@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: carexes
+  labels:
+    istio-injection: enabled
 
 ---
 apiVersion: apps/v1
