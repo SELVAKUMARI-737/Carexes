@@ -56,17 +56,30 @@ spec:
       labels:
         app: auth-service
     spec:
+      serviceAccountName: auth-service
+
       containers:
         - name: auth-service
           image: localhost:5000/carexes-auth-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 50051
+
           env:
             - name: AUTH_SERVICE_URL
               value: "0.0.0.0:50051"
             - name: MONGODB_URI
               value: "mongodb://mongodb:27017/carexes-auth-db"
+
+          volumeMounts:
+            - name: spire-agent-socket
+              mountPath: /run/spire/sockets
+
+      volumes:
+        - name: spire-agent-socket
+          hostPath:
+            path: /run/spire/sockets
+            type: Directory
 
 ---
 apiVersion: v1
